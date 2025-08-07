@@ -1,106 +1,46 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SIPRAJA (Versi Publik)</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      text-align: center;
-    }
-    header {
-      background-color: #800000;
-      color: white;
-      padding: 20px 0;
-    }
-    main {
-      padding: 30px 20px;
-    }
-    input[type="text"] {
-      padding: 10px;
-      font-size: 16px;
-      width: 250px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      margin-left: 10px;
-      background-color: #800000;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    .result {
-      margin-top: 30px;
-      padding: 20px;
-      border: 1px solid #ccc;
-      background-color: #fff;
-      display: inline-block;
-      text-align: left;
-    }
-    footer {
-      margin-top: 60px;
-      color: #666;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIPRAJA - Publik</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>SIPRAJA (Versi Publik)</h1>
-    <p>Kementerian Imigrasi dan Pemasyarakatan</p>
+    <img src="logo.png" alt="Logo" class="logo">
+    <div class="instansi">
+      <h1>Kementerian Imigrasi dan Pemasyarakatan</h1>
+      <p>Direktorat Jenderal Pemasyarakatan</p>
+      <p>Kantor Wilayah Ditjen PAS DKI Jakarta</p>
+      <p>LPKA Kelas II Jakarta</p>
+      <p>Jl. Raya Gandul (Kompleks PSDM Hukum), Ciganjur, Jagakarsa, Jakarta Selatan 12630</p>
+    </div>
   </header>
 
   <main>
-    <h2>Selamat Datang di SIPRAJA Versi Publik</h2>
-    <p>Silakan masukkan NIK anak binaan untuk melihat informasi.</p>
+    <h2>Informasi Anak Binaan</h2>
+    <form id="search-form">
+      <label for="nik">Masukkan NIK Anak Binaan:</label>
+      <input type="text" id="nik" name="nik" required>
+      <button type="submit">Cari</button>
+    </form>
 
-    <input type="text" id="nikInput" placeholder="Masukkan NIK anak binaan" />
-    <button onclick="cariData()">Cari Data</button>
-
-    <div id="hasil" class="result" style="display: none"></div>
+    <div id="result" class="result-card" style="display: none;">
+      <h3>Hasil Pencarian</h3>
+      <p><strong>Nama:</strong> <span id="nama"></span></p>
+      <p><strong>Lama Pidana:</strong> <span id="lamaPidana"></span></p>
+      <p><strong>Tanggal Bebas Murni:</strong> <span id="tanggalBebas"></span></p>
+      <p><strong>Tanggal PB (½ masa pidana):</strong> <span id="tanggalPB"></span></p>
+      <p><strong>Total Remisi:</strong> <span id="totalRemisi"></span></p>
+      <button id="cetakBtn">Cetak PDF</button>
+    </div>
   </main>
 
   <footer>
-    <p>LPKA Kelas II Jakarta &copy; 2025</p>
+    <p>&copy; 2025 SIPRAJA - Sistem Informasi Pemasyarakatan Remaja</p>
   </footer>
 
-  <script>
-    const dataAnak = [
-      {
-        nik: "1234567890123456",
-        nama: "Andi Saputra",
-        sisaPidana: "6 bulan 12 hari",
-        tanggalBebas: "2026-02-20"
-      },
-      {
-        nik: "9876543210987654",
-        nama: "Budi Santoso",
-        sisaPidana: "1 tahun 3 bulan",
-        tanggalBebas: "2027-05-10"
-      }
-    ];
-
-    function cariData() {
-      const nik = document.getElementById("nikInput").value.trim();
-      const hasilDiv = document.getElementById("hasil");
-      const anak = dataAnak.find(item => item.nik === nik);
-
-      if (anak) {
-        hasilDiv.innerHTML = `
-          <strong>Nama:</strong> ${anak.nama}<br>
-          <strong>NIK:</strong> ${anak.nik}<br>
-          <strong>Sisa Masa Pidana:</strong> ${anak.sisaPidana}<br>
-          <strong>Tanggal Bebas:</strong> ${anak.tanggalBebas}
-        `;
-        hasilDiv.style.display = "block";
-      } else {
-        hasilDiv.innerHTML = `<span style='color:red;'>Data tidak ditemukan. Pastikan NIK benar.</span>`;
-        hasilDiv.style.display = "block";
-      }
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
