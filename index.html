@@ -1,75 +1,106 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SIPRAJA - Publik</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIPRAJA (Versi Publik)</title>
   <style>
-    body{margin:0;font-family:Arial,sans-serif;background:#f4f4f6;color:#333;}
-    header{background:#800000;color:#fff;padding:20px;text-align:center;}
-    header img{max-height:60px;}
-    header .info{margin-top:10px;font-size:14px;line-height:1.4;}
-    main{max-width:600px;margin:30px auto;padding:20px;background:#fff;border-radius:8px;}
-    input,button{font-size:1rem;padding:10px;width:100%;margin-bottom:15px;}
-    button{background:#800000;color:#fff;border:none;cursor:pointer;border-radius:5px;}
-    .result{background:#eee;padding:15px;border-radius:6px;display:none;text-align:left;}
-    .contact{background:#fff;margin-top:20px;padding:15px;border-radius:6px;text-align:left;font-size:14px;}
-    footer{margin-top:40px;padding:15px;text-align:center;background:#ddd;font-size:13px;}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+    header {
+      background-color: #800000;
+      color: white;
+      padding: 20px 0;
+    }
+    main {
+      padding: 30px 20px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-left: 10px;
+      background-color: #800000;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      display: inline-block;
+      text-align: left;
+    }
+    footer {
+      margin-top: 60px;
+      color: #666;
+    }
   </style>
 </head>
 <body>
   <header>
-    <img src="logo_kemenkumham.png" alt="Logo Lembaga">
-    <div class="info">
-      <strong>Kementerian Imigrasi dan Pemasyarakatan</strong><br>
-      Direktorat Jenderal Pemasyarakatan<br>
-      Lembaga Pembinaan Khusus Anak Kelas II Jakarta
-    </div>
+    <h1>SIPRAJA (Versi Publik)</h1>
+    <p>Kementerian Imigrasi dan Pemasyarakatan</p>
   </header>
 
   <main>
-    <h2>Cek Informasi Anak Binaan</h2>
+    <h2>Selamat Datang di SIPRAJA Versi Publik</h2>
+    <p>Silakan masukkan NIK anak binaan untuk melihat informasi.</p>
+
     <input type="text" id="nikInput" placeholder="Masukkan NIK anak binaan" />
-    <button onclick="cariData()">Cari</button>
+    <button onclick="cariData()">Cari Data</button>
 
-    <div id="hasil" class="result"></div>
-
-    <button id="cetakBtn" style="display:none;" onclick="window.print()">Cetak PDF</button>
-
-    <div class="contact">
-      <h3>Kontak Petugas</h3>
-      <p><strong>Sidang Online:</strong> Andi Prasetyo (08990012214)</p>
-      <p><strong>Litmas Online:</strong> Rina Mariana (081290468651)</p>
-    </div>
+    <div id="hasil" class="result" style="display: none"></div>
   </main>
 
   <footer>
-    &copy; 2025 LPKA Kelas II Jakarta<br>
-    Jl. Raya Gandul, Ciganjur, Jakarta Selatan 12630
+    <p>LPKA Kelas II Jakarta &copy; 2025</p>
   </footer>
 
-<script>
-const dataAnak = {
-  "1234567890123456": {nama:"Ahmad Fikri",sisa:"3 bulan 12 hari",bebas:"20 November 2025"},
-  "9876543210987654": {nama:"Bayu Saputra",sisa:"1 tahun 2 bulan",bebas:"10 Januari 2027"}
-};
+  <script>
+    const dataAnak = [
+      {
+        nik: "1234567890123456",
+        nama: "Andi Saputra",
+        sisaPidana: "6 bulan 12 hari",
+        tanggalBebas: "2026-02-20"
+      },
+      {
+        nik: "9876543210987654",
+        nama: "Budi Santoso",
+        sisaPidana: "1 tahun 3 bulan",
+        tanggalBebas: "2027-05-10"
+      }
+    ];
 
-function cariData(){
-  const nik = document.getElementById("nikInput").value.trim();
-  const hasilDiv = document.getElementById("hasil");
-  const cetakBtn = document.getElementById("cetakBtn");
-  const data = dataAnak[nik];
-  if(data){
-    hasilDiv.innerHTML = `<p><strong>Nama:</strong> ${data.nama}<br>
-      <strong>Sisa Masa Pidana:</strong> ${data.sisa}<br>
-      <strong>Tanggal Bebas:</strong> ${data.bebas}</p>`;
-    hasilDiv.style.display = "block";
-    cetakBtn.style.display = "block";
-  } else {
-    hasilDiv.innerHTML = "<p style='color:red;'>Data tidak ditemukan. Cek NIK kembali.</p>";
-    hasilDiv.style.display = "block";
-    cetakBtn.style.display = "none";
-  }
-}
-</script>
+    function cariData() {
+      const nik = document.getElementById("nikInput").value.trim();
+      const hasilDiv = document.getElementById("hasil");
+      const anak = dataAnak.find(item => item.nik === nik);
+
+      if (anak) {
+        hasilDiv.innerHTML = `
+          <strong>Nama:</strong> ${anak.nama}<br>
+          <strong>NIK:</strong> ${anak.nik}<br>
+          <strong>Sisa Masa Pidana:</strong> ${anak.sisaPidana}<br>
+          <strong>Tanggal Bebas:</strong> ${anak.tanggalBebas}
+        `;
+        hasilDiv.style.display = "block";
+      } else {
+        hasilDiv.innerHTML = `<span style='color:red;'>Data tidak ditemukan. Pastikan NIK benar.</span>`;
+        hasilDiv.style.display = "block";
+      }
+    }
+  </script>
 </body>
 </html>
